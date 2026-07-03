@@ -12,23 +12,31 @@ public class JCFMessageService implements MessageService {
     // 아직 사물함 가구가 들어오기 전, 간판만 달아놓은 상태
     private final Map<UUID, Message> data;
 
+    private final ChannelService channelService;
+    private final UserService userService;
 
     // [ 사물함 조립 및 초기화 ]
     // 이 줄이 없으면 텅 빈 공중에 물건을 넣으라는 꼴이 되어 에러가 남
     // 진짜 데이터들을 집어넣을 수 있는 빈 사믈함을 새로 사서 조립
-    public JCFMessageService() {
+    public JCFMessageService(ChannelService channelService, UserService userService) {
         this.data = new HashMap<>();
+        this.channelService = channelService;
+        this.userService = userService;
     }
 
     @Override
     public Message create(String content, UUID channelId, UUID authorId) {
+        try {
+            this.channelService.find(channelId);
+            this.userService.find(authorId);
+        } catch (NoSuchElementException e) {
+            throw  e;
+        }
         // 1. 재료를 모아 새로운 메시지 카드를 생성합니다. (새 메시지 객체 생성)
         Message message = new Message(content, channelId, authorId);
-
         // 2. 조립해 둔 사물함(data)에 [번호표, 메시지] 짝꿍으로 쏙 집어넣습니다.
         // 생성된 메시지를 고유 ID와 함께 인메모리 맵에 저장
         this.data.put(message.getId(), message);
-
         // 3. 화면에 띄울 수 있도록 만든 메시지를 돌려줍니다.
         return message;
     }

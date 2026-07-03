@@ -76,7 +76,7 @@ public class MisstionAnswerApplication {
         System.out.println("메세지 삭제: " + foundMessageAfterDelete.size());
     }
 
-    static User setUser(UserService userService) {
+    static User setupUser(UserService userService) {
         User user = userService.create("woody", "woody@codeit.com", "woody1234");
         return user;
     }
@@ -95,11 +95,17 @@ public class MisstionAnswerApplication {
         // 서비스 초기화
         UserService userService = new JCFUserService();
         ChannelService channelService = new JCFChannelService();
-        MessageService messageService = new JCFMessageService();
+        MessageService messageService = new JCFMessageService(channelService, userService);
 
         // 테스트
-        userCRUDTest(userService);
-        channelCRUDTest(channelService);
-        messageCURDTest(messageService);
+//        userCRUDTest(userService);
+//        channelCRUDTest(channelService);
+//        messageCURDTest(messageService);
+
+        // 셋업
+        User user = setupUser(userService);
+        Channel channel = setupChannel(channelService);
+        // 테스트
+        messageCreateTest(messageService, channel, user);
     }
 }
