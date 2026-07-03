@@ -1,9 +1,11 @@
 package com.codeit.misstionanswer.entity;
 
+import java.io.*;
 import java.time.*;
 import java.util.*;
 
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     private UUID id;
     private Long createdAt;
     private Long updatedAt;

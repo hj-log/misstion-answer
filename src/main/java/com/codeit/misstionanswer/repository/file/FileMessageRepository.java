@@ -7,11 +7,11 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-public class FIleMessageRepository implements MessageRepository {
+public class FileMessageRepository implements MessageRepository {
     private final Path DIRECTORY;
     private final String EXTENSION = ".ser";
 
-    public FIleMessageRepository() {
+    public FileMessageRepository() {
         this.DIRECTORY = Paths.get(System.getProperty("user.dir"),
                 "file-data-map", Message.class.getSimpleName());
 
