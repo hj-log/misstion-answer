@@ -21,11 +21,11 @@ public class JCFUserService implements UserService {
     }
 
     @Override
-    public User find(UUID id) {
-        User userNullable = this.data.get(id);
+    public User find(UUID userId) {
+        User userNullable = this.data.get(userId);
 
         return Optional.ofNullable(userNullable)
-                .orElseThrow(() -> new NoSuchElementException("user with id " + id + " not found "));
+                .orElseThrow(() -> new NoSuchElementException("user with id " + userId + " not found "));
     }
 
     @Override
@@ -34,20 +34,20 @@ public class JCFUserService implements UserService {
     }
 
     @Override
-    public User update(UUID id, String newUsername, String newEmail, String newPassword) {
-        User userNullable = this.data.get(id);
+    public User update(UUID userId, String newUsername, String newEmail, String newPassword) {
+        User userNullable = this.data.get(userId);
         User user = Optional.ofNullable(userNullable)
-                .orElseThrow(() -> new NoSuchElementException("user with id " + id + " not found " ));
+                .orElseThrow(() -> new NoSuchElementException("user with id " + userId + " not found " ));
         user.update(newUsername, newEmail, newPassword);
         return user;
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(UUID userId) {
 
-        if(!this.data.containsKey(id)) {
-            throw new NoSuchElementException("user with id " + id + " not found ");
+        if(!this.data.containsKey(userId)) {
+            throw new NoSuchElementException("user with id " + userId + " not found ");
         }
-        this.data.remove(id);
+        this.data.remove(userId);
     }
 }
