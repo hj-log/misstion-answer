@@ -2,12 +2,14 @@ package com.codeit.misstionanswer.repository.file;
 
 import com.codeit.misstionanswer.entity.*;
 import com.codeit.misstionanswer.repository.*;
+import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.stereotype.*;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
+@ConditionalOnProperty(name = "misstionAnswer.repository.type", havingValue = "file")
 @Repository
 public class FileChannelRepository implements ChannelRepository {
     private final Path DIRECTORY;

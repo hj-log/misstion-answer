@@ -1,3 +1,8 @@
 spring:
   application:
     name: misstion-answer
+
+  MisstionAnswer:
+    repository:
+      type: jcf   # jcf | file
+      file-directory: .MisstionAnswer

@@ -2,9 +2,13 @@ package com.codeit.misstionanswer.repository.jcf;
 
 import com.codeit.misstionanswer.entity.*;
 import com.codeit.misstionanswer.repository.*;
+import org.springframework.boot.autoconfigure.condition.*;
+import org.springframework.stereotype.*;
 
 import java.util.*;
 
+@ConditionalOnProperty(name = "misstionAnswer.repository.type", havingValue = "jcf", matchIfMissing = true)
+@Repository
 public class JCFMessageRepository implements MessageRepository {
 
     private final Map<UUID, Message> data;

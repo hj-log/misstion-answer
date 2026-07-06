@@ -2,9 +2,12 @@ package com.codeit.misstionanswer.repository.jcf;
 
 import com.codeit.misstionanswer.entity.*;
 import com.codeit.misstionanswer.repository.*;
+import org.springframework.boot.autoconfigure.condition.*;
+import org.springframework.stereotype.*;
 
 import java.util.*;
-
+@Repository
+@ConditionalOnProperty(name = "misstionAnswer.repository.type", havingValue = "jcf", matchIfMissing = true)
 public class JCFUserStatusRepository implements UserStatusRepository {
 
     private final Map<UUID, UserStatus> data;
