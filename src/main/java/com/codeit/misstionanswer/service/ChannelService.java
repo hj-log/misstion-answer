@@ -1,19 +1,23 @@
 package com.codeit.misstionanswer.service;
 
+import com.codeit.misstionanswer.dto.data.*;
+import com.codeit.misstionanswer.dto.request.*;
 import com.codeit.misstionanswer.entity.*;
 
 import java.util.*;
 
 public interface ChannelService {
 
-    Channel create(ChannelType type, String name, String description);
+    Channel create(PublicChannelCreateRequest request);
 
-    Channel find(UUID channelId);
+    Channel create(PrivateChannelCreateRequest request);
 
-    List<Channel> findAll();
+    ChannelDto find(UUID channelId);
 
-    Channel update(UUID channelId, String newName, String newDescription);
+    List<ChannelDto> findAllByUserId(UUID userId);
 
-    void delete(UUID id);
+    Channel update(UUID channelId, PublicChannelUpdateRequest request);
+
+    void delete(UUID channelId);
 
 }

@@ -1,17 +1,19 @@
 package com.codeit.misstionanswer.entity;
 
+import lombok.*;
 import org.apache.commons.logging.*;
 
 import java.io.*;
 import java.time.*;
 import java.util.*;
 
+@Getter
 public class Channel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private UUID id;
-    private Long createdAt;
-    private Long updatedAt;
+    private Instant createdAt;
+    private Instant updatedAt;
 
     private ChannelType type;
     private String name;
@@ -19,34 +21,10 @@ public class Channel implements Serializable {
 
     public Channel(ChannelType type, String name, String description) {
         this.id = UUID.randomUUID();
-        this.createdAt = Instant.now() .getEpochSecond();
+        this.createdAt = Instant.now();
         this.type = type;
         this.name = name;
         this.description = description;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public Long getCreatedAt() {
-        return createdAt;
-    }
-
-    public Long getUpdatedAt(){
-        return updatedAt;
-    }
-
-    public ChannelType getType(){
-        return type;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     // 기존 데이터와 비교해서, 실제로 변경된 값이 있을 때만 안전하게 데이터를 갱신하는 코드
@@ -66,7 +44,7 @@ public class Channel implements Serializable {
         }
 
         if(anyValueUpdated) {
-            this.updatedAt = Instant.now().getEpochSecond();
+            this.updatedAt = Instant.now();
         }
     }
 

@@ -1,18 +1,21 @@
 package com.codeit.misstionanswer.service;
 
+import com.codeit.misstionanswer.dto.data.*;
+import com.codeit.misstionanswer.dto.request.*;
 import com.codeit.misstionanswer.entity.*;
 
 import java.util.*;
 
 public interface UserService {
 
-    User create(String username, String email, String password);
+    User create(UserCreateRequest userCreateRequest,
+                Optional<BinaryContentCreateRequest> profileCreateRequest);
 
-    User find(UUID userId);
+    UserDto find(UUID userId);
 
-    List<User> findAll();
+    List<UserDto> findAll();
 
-    User update(UUID userId, String newUsername, String newEmail, String newPassword);
+    User update(UUID userId, UserUpdateRequest userUpdateRequest, Optional<BinaryContentCreateRequest> profileCreateRequest);
 
-    void delete(UUID id);
+    void delete(UUID userId);
 }
