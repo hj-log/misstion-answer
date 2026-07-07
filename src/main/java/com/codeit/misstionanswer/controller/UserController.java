@@ -24,7 +24,6 @@ public class UserController implements UserApi {
     private final UserStatusService userStatusService;
 
     @RequestMapping(
-            path = "create",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
     )
     public ResponseEntity<User> create(
