@@ -1,5 +1,6 @@
 package com.codeit.misstionanswer.controller;
 
+import com.codeit.misstionanswer.controller.api.*;
 import com.codeit.misstionanswer.dto.data.*;
 import com.codeit.misstionanswer.dto.request.*;
 import com.codeit.misstionanswer.entity.*;
@@ -17,8 +18,8 @@ import java.util.*;
 @RequiredArgsConstructor
 @Controller
 @ResponseBody
-@RequestMapping("/api/user")
-public class UserController {
+@RequestMapping("/api/users")
+public class UserController implements UserApi {
     private final UserService userService;
     private final UserStatusService userStatusService;
 

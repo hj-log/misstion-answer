@@ -1,5 +1,6 @@
 package com.codeit.misstionanswer.controller;
 
+import com.codeit.misstionanswer.controller.api.*;
 import com.codeit.misstionanswer.dto.request.*;
 import com.codeit.misstionanswer.entity.*;
 import com.codeit.misstionanswer.service.*;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @ResponseBody
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthController implements AuthApi {
 
     private final AuthService authService;
 
-    @RequestMapping(path = "login")
+    @PostMapping(path = "login")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
         User user = authService.login(loginRequest);
         return ResponseEntity

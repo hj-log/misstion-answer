@@ -1,5 +1,6 @@
 package com.codeit.misstionanswer.controller;
 
+import com.codeit.misstionanswer.controller.api.*;
 import com.codeit.misstionanswer.dto.request.*;
 import com.codeit.misstionanswer.entity.*;
 import com.codeit.misstionanswer.service.*;
@@ -16,7 +17,7 @@ import java.util.*;
 @Controller
 @ResponseBody
 @RequiredArgsConstructor
-public class MessageController {
+public class MessageController implements MessageApi {
 
     private final MessageService messageService;
 

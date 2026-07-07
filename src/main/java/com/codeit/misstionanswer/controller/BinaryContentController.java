@@ -1,5 +1,6 @@
 package com.codeit.misstionanswer.controller;
 
+import com.codeit.misstionanswer.controller.api.*;
 import com.codeit.misstionanswer.entity.*;
 import com.codeit.misstionanswer.service.*;
 import lombok.*;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/binarycontent")
+@RequestMapping("/api/binaryContent")
 @Controller
 @ResponseBody
-public class BinaryContentController {
+public class BinaryContentController implements BinaryContentApi {
     private final BinaryContentService binaryContentService;
 
     @RequestMapping(path = "find")

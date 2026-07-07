@@ -1,5 +1,6 @@
 package com.codeit.misstionanswer.controller;
 
+import com.codeit.misstionanswer.controller.api.*;
 import com.codeit.misstionanswer.dto.data.*;
 import com.codeit.misstionanswer.dto.request.*;
 import com.codeit.misstionanswer.entity.*;
@@ -15,7 +16,7 @@ import java.util.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/channel")
 @ResponseBody
-public class ChannelController {
+public class ChannelController implements ChannelApi {
 
     private final ChannelService channelService;
 
