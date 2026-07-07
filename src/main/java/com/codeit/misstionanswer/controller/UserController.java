@@ -23,45 +23,49 @@ public class UserController implements UserApi {
     private final UserService userService;
     private final UserStatusService userStatusService;
 
-    @RequestMapping(
-            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
-    )
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @Override
     public ResponseEntity<User> create(
             @RequestPart("userCreateRequest") UserCreateRequest userCreateRequest,
             @RequestPart(value = "profile", required = false) MultipartFile profile
     ) {
-        Optional<BinaryContentCreateRequest> profileRequest = Optional.ofNullable(profile).flatMap(this::resolveProfileRequest);
+        Optional<BinaryContentCreateRequest> profileRequest = Optional.ofNullable(profile)
+                .flatMap(this::resolveProfileRequest);
         User createdUser = userService.create(userCreateRequest, profileRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdUser);
     }
 
-    @RequestMapping(
-            path = "update",
+    @PatchMapping(
+            path = "{userId}",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
     )
+    @Override
     public ResponseEntity<User> update(
-            @RequestParam("userId") UUID userId,
+            @PathVariable("userId") UUID userId,
             @RequestPart("userUpdateRequest") UserUpdateRequest userUpdateRequest,
             @RequestPart(value = "profile", required = false) MultipartFile profile
     ) {
-        Optional<BinaryContentCreateRequest> profileRequest = Optional.ofNullable(profile).flatMap(this::resolveProfileRequest);
+        Optional<BinaryContentCreateRequest> profileRequest = Optional.ofNullable(profile)
+                .flatMap(this::resolveProfileRequest);
         User updatedUser = userService.update(userId, userUpdateRequest, profileRequest);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(updatedUser);
     }
 
-    @RequestMapping(path = "delete")
-    public ResponseEntity<Void> delete(@RequestParam("userId") UUID userId) {
+    @DeleteMapping(path = "{userId}")
+    @Override
+    public ResponseEntity<Void> delete(@PathVariable("userId") UUID userId) {
         userService.delete(userId);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
 
-    @RequestMapping(path = "findAll")
+    @GetMapping
+    @Override
     public ResponseEntity<List<UserDto>> findAll() {
         List<UserDto> users = userService.findAll();
         return ResponseEntity
@@ -69,8 +73,10 @@ public class UserController implements UserApi {
                 .body(users);
     }
 
-    @RequestMapping(path = "updateUserStatusByUserId")
-    public ResponseEntity<UserStatus> updateUserStatusByUserId(@RequestParam("userId") UUID userId, @RequestBody UserStatusUpdateRequest request) {
+    @PatchMapping(path = "{userId}/userStatus")
+    @Override
+    public ResponseEntity<UserStatus> updateUserStatusByUserId(@PathVariable("userId") UUID userId,
+                                                               @RequestBody UserStatusUpdateRequest request) {
         UserStatus updatedUserStatus = userStatusService.updateByUserId(userId, request);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -94,4 +100,3 @@ public class UserController implements UserApi {
         }
     }
 }
-

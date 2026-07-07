@@ -17,17 +17,17 @@ import java.util.*;
 public class BinaryContentController implements BinaryContentApi {
     private final BinaryContentService binaryContentService;
 
-    @RequestMapping(path = "find")
-    public ResponseEntity<BinaryContent> find(@RequestParam("binaryContentId") UUID binaryContentId) {
+    @GetMapping(path = "{binaryContentId}")
+    public ResponseEntity<BinaryContent> find(@PathVariable("binaryContentId") UUID binaryContentId) {
         BinaryContent binaryContent = binaryContentService.find(binaryContentId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(binaryContent);
     }
 
-    @RequestMapping(path = "findAllByIdIn")
-    public ResponseEntity<List<BinaryContent>> findAllByIdIn (@RequestParam("binaryContentIds")
-                                                                  List<UUID> binaryContentIds) {
+    @GetMapping
+    public ResponseEntity<List<BinaryContent>> findAllByIdIn(
+            @RequestParam("binaryContentIds") List<UUID> binaryContentIds) {
         List<BinaryContent> binaryContents = binaryContentService.findAllByIdIn(binaryContentIds);
         return ResponseEntity
                 .status(HttpStatus.OK)
